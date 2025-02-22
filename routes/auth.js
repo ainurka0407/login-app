@@ -18,8 +18,6 @@ router.get('/profile', authenticate, (req, res) => {
   
 
 const User = require('../models/user');
+module.exports = router;
 
-
-
-module.exports = authenticate;
 
