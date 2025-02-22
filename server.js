@@ -6,10 +6,12 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const app = express();
 
-// Use Helmet for security headers and a custom content security policy
+// --- Security & Sanitization Middleware ---
+// Use Helmet for security headers including a custom Content Security Policy
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
@@ -24,37 +26,44 @@ app.use(
   })
 );
 
-// Health-check endpoint
+// Use express-mongo-sanitize to prevent NoSQL injection attacks
+app.use(mongoSanitize());
+
+// --- Basic Endpoints ---
+// Health-check endpoint for uptime monitoring
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Server is running' });
 });
 
-// CORS configuration (Update origin for production if needed)
+// --- CORS Configuration ---
+// Update origin in production (e.g. your front-end URL)
 const corsOptions = {
-  origin: 'http://localhost:3000', // Change this to your deployed front-end URL in production
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   credentials: true,
 };
 app.use(cors(corsOptions));
 
-// Body parsing middleware
+// --- Body Parsing Middleware ---
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session middleware (adjust options for production as needed)
+// --- Session Middleware ---
+// Note: In production, consider using a session store like connect-mongo
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'default-secret-key',
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false, // Change to true if using HTTPS in production
+      secure: process.env.NODE_ENV === 'production', // set secure cookies in production
       httpOnly: true,
       maxAge: 60000,
     },
   })
 );
 
-// Serve static files
+// --- Static Files ---
+// Serve files from public directories (adjust as needed)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'assets')));
@@ -62,30 +71,33 @@ app.use('/bootstrap/css', express.static(path.join(__dirname, 'bootstrap/css')))
 app.use('/bootstrap/js', express.static(path.join(__dirname, 'bootstrap/js')));
 app.use('/js', express.static(path.join(__dirname, 'js')));
 
-// MongoDB connection
+// --- MongoDB Connection ---
 const MONGODB_URI = process.env.MONGODB_URI;
-mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 50000 })
+mongoose
+  .connect(MONGODB_URI, { serverSelectionTimeoutMS: 50000 })
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
 
-// Import routes
+// --- Import and Mount Routes ---
+// (Make sure the files exist in your ./routes directory)
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
-const testRoutes = require('./routes/testRoutes'); // if needed
 const viewRoutes = require('./routes/viewRoutes');
-const testResultsRoutes = require('./routes/testResultsRoutes');
-const videoRoutes = require('./routes/videoRoutes');
+// If you have additional test or video routes, mount them on unique paths
+const testResultsRoutes = require('./routes/testResultsRoutes'); // e.g., for test results
+const videoRoutes = require('./routes/videoRoutes');             // for video-related routes
+const testRoutes = require('./routes/testRoutes');                 // avoid conflict with testResultsRoutes
 
-// Mount routes
-app.use('/test', testResultsRoutes);
-app.use('/video', videoRoutes);
-app.use('/', viewRoutes);
+// Mount routes with unique paths (adjust as necessary)
 app.use('/auth', authRoutes);
-console.log("Mounting authRoutes at /auth");
 app.use('/user', userRoutes);
-app.use('/test', testRoutes);
+app.use('/videos', videoRoutes);
+app.use('/test-results', testResultsRoutes);
+app.use('/tests', testRoutes); // Ensure these do not conflict with each other
+app.use('/', viewRoutes); // Your default or view routes (e.g. home page)
 
-// Fallback Content Security Policy header (if needed)
+// --- Fallback Content Security Policy Header ---
+// (Optional – to enforce a strict policy on unmatched routes)
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
@@ -94,7 +106,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Start server
+// --- Start Server ---
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
