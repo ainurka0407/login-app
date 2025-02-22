@@ -61,10 +61,18 @@ app.use('/bootstrap/css', express.static(path.join(__dirname, 'bootstrap/css')))
 app.use('/bootstrap/js', express.static(path.join(__dirname, 'bootstrap/js')));
 app.use('/js', express.static(path.join(__dirname, 'js')));
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/users', { 
-  serverSelectionTimeoutMS: 50000
-});
+const localURI = 'mongodb://localhost:27017/users';
+
+// Use the environment variable if available, otherwise fallback to local:
+const MONGODB_URI = process.env.MONGODB_URI || localURI;
+
+mongoose.connect(MONGODB_URI, { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 50000 
+})
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Error connecting to MongoDB:", err));
 
 
 // Import routes
