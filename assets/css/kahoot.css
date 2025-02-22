@@ -1,0 +1,133 @@
+/*Navbar*/
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins',sans-serif;
+}
+.bg-cream{
+    background-color: #fff2e1;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 30px;
+}
+
+.navbar .logo{
+    
+    display: flex;
+    align-items: center;
+    
+}
+.navbar .logo img {
+    width: 170px; 
+    height: auto; 
+    padding: 5px; 
+  }
+
+.navbar .nav-list{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.navbar .nav-list li{
+    list-style: none;
+    font-size: 15px;
+}
+.navbar .nav-list li a{
+    text-decoration: none;
+    color: black;
+}
+.navbar .nav-list button{
+    border: none;
+    padding: 10px 40px;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.navbar .nav-list .login{
+    background-color: #fff;
+}
+.navbar .nav-list .signup{
+    background-color: #f48c06;
+    color: #fff;
+}
+.buttons{
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+}
+.buttons .line{
+    width: 30px;
+    height: 3px;
+    transition: all 0.3s ease-in-out;
+    background-color: black;
+    border-radius: 5px;
+}
+.buttons .line:nth-child(3){
+    width: 15px;
+    margin-left: auto;}
+
+
+.header {
+    text-align: center;
+    padding: 50px 0;
+    color: #f48c06;
+    background-color: #f8f9fa;
+}
+
+.quiz-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.quiz-container iframe {
+    border: 2px solid #f48c06;
+    border-radius: 10px;
+    width: 80%;
+    height: 500px;
+}
+
+footer.footer {
+    background-color: #001f3f;
+    color: aliceblue;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+footer .edu-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+footer .edu-logo .logo img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+footer .links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+footer .links img {
+    width: 20px;
+    height: auto;
+}
+
+footer .copyright {
+    font-size: 14px;
+}

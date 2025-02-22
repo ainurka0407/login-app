@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/tests.css">
+    <link rel="icon" href="favicon_io/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="favicon_io/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
+</head>
+
+<body>
+    <!--navbar-->
+    <header>
+        <nav class="navbar bg-cream">
+            <div class="logo">
+                <img src="logo.png" alt="logo">
+            </div>
+            <ul class="nav-list">
+                <li><a href="1_page.html">Home</a></li>
+                <li><a href="2_page.html">Syllabus</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="tests_main.html">Tests</a></li>
+                <li><a href="3_page.html">Calculator</a></li>
+                <button class="login" onclick="alert('will be soon')">Login</button>
+                <button class="signup" onclick="alert('will be soon')">Sign Up</button>
+            </ul>
+            <div class="buttons">
+                <div class="line line-1"></div>
+                <div class="line line-2"></div>
+                <div class="line line-3"></div>
+            </div>
+        </nav>
+    </header>
+    <!-- 1st section -->
+    <section class="hero bg-cream">
+        <div class="main">
+            <div class="hero-content">
+                <h2><span>Web</span> Technology Tests</h2>
+                <p>Challenge yourself with quizzes on HTML, CSS, JavaScript, and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tests section-->
+    <section class="test-container">
+        <div class="test-content">
+            <h1>Final Test</h1>
+            <form id="test-form">
+                <!-- Question 1 -->
+                <div class="question">
+                    <h3>1. How to connect external JS? (myScript.js)</h3>
+                    <label><input type="text" id="q1" placeholder="write as src="></label><br>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question">
+                    <h3>2. Fill the gap</h3>
+                    <label>x = 5;
+                        y = 6;
+                        z = x + y;
+                        document.getElementById("demo").<input type="text" id="q2" placeholder="write here"> =
+                        "The value of z is: " + z;</label><br>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question">
+                    <h3>3. What will the output of the following code be?</h3>
+                    <pre>
+                        function sayHi() {
+                            console.log(name);
+                            console.log(age);
+                            var name = 'Lydia';
+                            let age = 21;
+                        }
+                        
+                        sayHi();
+                    </pre>
+                    <label><input type="radio" name="q3" value="a"> Lydia and undefined</label><br>
+                    <label><input type="radio" name="q3" value="b"> Lydia and ReferenceError</label><br>
+                    <label><input type="radio" name="q3" value="c"> ReferenceError and 21</label><br>
+                    <label><input type="radio" name="q3" value="d"> undefined and ReferenceError</label>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question">
+                    <h3>4. What's the output of the following code?</h3>
+                    <pre>
+                        +true;
+                        !'Lydia';
+                    </pre>
+                    <label><input type="radio" name="q4" value="a"> 1 and false</label><br>
+                    <label><input type="radio" name="q4" value="b"> false and NaN</label><br>
+                    <label><input type="radio" name="q4" value="c"> false and false</label><br>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question">
+                    <h3>5. Drag and Drop: Match the comments with their correct syntax</h3>
+                    <div class="drag-container">
+                        <div class="drag-items">
+                            <div class="drag-item" draggable="true" id="js-comment">// Comment</div>
+                            <div class="drag-item" draggable="true" id="html-comment">&lt;!-- Comment --&gt;</div>
+                            <div class="drag-item" draggable="true" id="css-comment">/* Comment */</div>
+                        </div>
+                        <div class="drop-zones">
+                            <div class="box" data-correct="html-comment">HTML</div>
+                            <div class="box" data-correct="css-comment">CSS</div>
+                            <div class="box" data-correct="js-comment">JavaScript</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question">
+                    <h3>6. Do all objects have prototypes?</h3>
+                    <label><input type="radio" name="q6" value="a"> True</label><br>
+                    <label><input type="radio" name="q6" value="b"> False</label><br>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question">
+                    <h3>7. What's the output of the following code?</h3>
+                    <pre>
+                        var num = 8;
+                        var num = 10;
+                        console.log(num);
+                    </pre>
+                    <label><input type="radio" name="q7" value="a"> 8</label><br>
+                    <label><input type="radio" name="q7" value="b"> 10</label><br>
+                    <label><input type="radio" name="q7" value="c"> SyntaxError</label><br>
+                    <label><input type="radio" name="q7" value="d"> ReferenceError</label>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question">
+                    <h3>8. How is a comment inserted in JS?</h3>
+                    <label><input type="radio" name="q8" value="a"> &lt;!-- comment --&gt;</label><br>
+                    <label><input type="radio" name="q8" value="b"> // comment //</label><br>
+                    <label><input type="radio" name="q8" value="c"> /* comment */</label><br>
+                    <label><input type="radio" name="q8" value="d"> # comment</label>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question">
+                    <h3>9. What's the output of the following code?</h3>
+                    <pre>
+                        console.log(typeof typeof 1);
+                    </pre>
+                    <label><input type="radio" name="q9" value="a"> "number"</label><br>
+                    <label><input type="radio" name="q9" value="b"> "string"</label><br>
+                    <label><input type="radio" name="q9" value="c"> "object"</label><br>
+                    <label><input type="radio" name="q9" value="d"> "undefined"</label>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question">
+                    <h3>10. What's the output of the following code?</h3>
+                    <pre>
+                        console.log(3 + 4 + '5');
+                    </pre>
+                    <label><input type="radio" name="q10" value="a"> "345"</label><br>
+                    <label><input type="radio" name="q10" value="b"> "75"</label><br>
+                    <label><input type="radio" name="q10" value="c"> 12</label><br>
+                    <label><input type="radio" name="q10" value="d"> "12"</label>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question">
+                    <h3>11. What is the result of the following expression?</h3>
+                    <pre>
+                        console.log(2 + '2');
+                    </pre>
+                    <label><input type="radio" name="q11" value="a"> "22"</label><br>
+                    <label><input type="radio" name="q11" value="b"> 4</label><br>
+                    <label><input type="radio" name="q11" value="c"> "4"</label><br>
+                    <label><input type="radio" name="q11" value="d"> NaN</label>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question">
+                    <h3>12. What does the following code log?</h3>
+                    <pre>
+                        var a = 'hello';
+                        var b = 'world';
+                        console.log(a + ' ' + b);
+                    </pre>
+                    <label><input type="radio" name="q12" value="a"> "hello world"</label><br>
+                    <label><input type="radio" name="q12" value="b"> "helloworld"</label><br>
+                    <label><input type="radio" name="q12" value="c"> undefined</label><br>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="question">
+                    <h3>13. Which symbol is used to refer to a property of an object?</h3>
+                    <label><input type="radio" name="q13" value="a"> .</label><br>
+                    <label><input type="radio" name="q13" value="b"> &gt;</label><br>
+                    <label><input type="radio" name="q13" value="c"> =</label><br>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="question">
+                    <h3>14. Which of these is an example of a truthy value in JavaScript?</h3>
+                    <label><input type="radio" name="q14" value="a"> 0</label><br>
+                    <label><input type="radio" name="q14" value="b"> ""</label><br>
+                    <label><input type="radio" name="q14" value="c"> null</label><br>
+                    <label><input type="radio" name="q14" value="d"> {} </label><br>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="question">
+                    <h3>15. What is the correct way to declare a variable in JavaScript?</h3>
+                    <label><input type="radio" name="q15" value="a"> var</label><br>
+                    <label><input type="radio" name="q15" value="b"> let</label><br>
+                    <label><input type="radio" name="q15" value="c"> const</label><br>
+                    <label><input type="radio" name="q15" value="d"> All of the above</label><br>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="question">
+                    <h3>16. What does JSON stand for?</h3>
+                    <label><input type="radio" name="q16" value="a"> JavaScript Object Notation</label><br>
+                    <label><input type="radio" name="q16" value="b"> Java Source Object Notation</label><br>
+                    <label><input type="radio" name="q16" value="c"> JavaScript Oriented Notation</label><br>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="question">
+                    <h3>17. Which method is used to convert a JavaScript object into a JSON string?</h3>
+                    <label><input type="radio" name="q17" value="a"> JSON.stringify()</label><br>
+                    <label><input type="radio" name="q17" value="b"> JSON.parse()</label><br>
+                    <label><input type="radio" name="q17" value="c"> JSON.convert()</label><br>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="question">
+                    <h3>18. Which of the following is NOT a valid JSON data type?</h3>
+                    <label><input type="radio" name="q18" value="a"> Object</label><br>
+                    <label><input type="radio" name="q18" value="b"> String</label><br>
+                    <label><input type="radio" name="q18" value="c"> Function</label><br>
+                    <label><input type="radio" name="q18" value="d"> Array</label><br>
+                </div>
+
+                <!-- Question 19 -->
+                <div class="question">
+                    <h3>19. What will the following code return?</h3>
+                    <pre>
+                                        const obj = { name: 'John', age: 30 };
+                                        console.log(Object.keys(obj));
+                                    </pre>
+                    <label><input type="radio" name="q19" value="a"> ['name', 'age']</label><br>
+                    <label><input type="radio" name="q19" value="b"> ['John', 30]</label><br>
+                    <label><input type="radio" name="q19" value="c"> 'name, age'</label><br>
+                    <label><input type="radio" name="q19" value="d"> undefined</label><br>
+                </div>
+
+                <!-- Question 20 -->
+                <div class="question">
+                    <h3>20. Which of the following is used to add an item to the end of an array?</h3>
+                    <label><input type="radio" name="q20" value="a"> push()</label><br>
+                    <label><input type="radio" name="q20" value="b"> pop()</label><br>
+                    <label><input type="radio" name="q20" value="c"> shift()</label><br>
+                    <label><input type="radio" name="q20" value="d"> unshift()</label><br>
+                </div>
+
+                <!-- Question 21 -->
+                <div class="question">
+                    <h3>21. Which function can be used to remove the last element from an array?</h3>
+                    <label><input type="radio" name="q21" value="a"> pop()</label><br>
+                    <label><input type="radio" name="q21" value="b"> push()</label><br>
+                    <label><input type="radio" name="q21" value="c"> shift()</label><br>
+                    <label><input type="radio" name="q21" value="d"> unshift()</label><br>
+                </div>
+
+                <!-- Question 22 -->
+                <div class="question">
+                    <h3>22. How do you create a new JavaScript object?</h3>
+                    <label><input type="radio" name="q22" value="a"> var obj = {}; </label><br>
+                    <label><input type="radio" name="q22" value="b"> var obj = []; </label><br>
+                    <label><input type="radio" name="q22" value="c"> var obj = new Object(); </label><br>
+                    <label><input type="radio" name="q22" value="d"> All of the above</label><br>
+                </div>
+
+                <!-- Question 23 -->
+                <div class="question">
+                    <h3>23. What is the correct way to define a function in JavaScript?</h3>
+                    <label><input type="radio" name="q23" value="a"> function myFunction() {}</label><br>
+                    <label><input type="radio" name="q23" value="b"> def myFunction() {} </label><br>
+                    <label><input type="radio" name="q23" value="c"> function: myFunction() {} </label><br>
+                    <label><input type="radio" name="q23" value="d"> None of the above</label><br>
+                </div>
+
+                <!-- Question 24 -->
+                <div class="question">
+                    <h3>24. Which of the following will return the current date and time in JavaScript?</h3>
+                    <label><input type="radio" name="q24" value="a"> new Date()</label><br>
+                    <label><input type="radio" name="q24" value="b"> new DateTime()</label><br>
+                    <label><input type="radio" name="q24" value="c"> currentTime()</label><br>
+                    <label><input type="radio" name="q24" value="d"> None of the above</label><br>
+                </div>
+
+                <!-- Question 25 -->
+                <div class="question">
+                    <h3>25. How do you call a function in JavaScript?</h3>
+                    <label><input type="radio" name="q25" value="a"> myFunction() </label><br>
+                    <label><input type="radio" name="q25" value="b"> callFunction() </label><br>
+                    <label><input type="radio" name="q25" value="c"> function.call() </label><br>
+                    <label><input type="radio" name="q25" value="d"> None of the above</label><br>
+                </div>
+
+                <!-- Question 26 -->
+                <div class="question">
+                    <h3>26. What is the use of the `this` keyword in JavaScript?</h3>
+                    <label><input type="radio" name="q26" value="a"> It refers to the global object</label><br>
+                    <label><input type="radio" name="q26" value="b"> It refers to the current function</label><br>
+                    <label><input type="radio" name="q26" value="c"> It refers to the current object</label><br>
+                    <label><input type="radio" name="q26" value="d"> None of the above</label><br>
+                </div>
+
+                <!-- Question 27 -->
+                <div class="question">
+                    <h3>27. What will the following code output?</h3>
+                    <pre>
+                                        console.log(2 + 3 + '5');
+                                    </pre>
+                    <label><input type="radio" name="q27" value="a"> "55"</label><br>
+                    <label><input type="radio" name="q27" value="b"> 55</label><br>
+                    <label><input type="radio" name="q27" value="c"> "75"</label><br>
+                    <label><input type="radio" name="q27" value="d"> 7</label><br>
+                </div>
+
+                <!-- Question 28 -->
+                <div class="question">
+                    <h3>28. What does the `typeof` operator return when applied to a function?</h3>
+                    <label><input type="radio" name="q28" value="a"> "function"</label><br>
+                    <label><input type="radio" name="q28" value="b"> "object"</label><br>
+                    <label><input type="radio" name="q28" value="c"> "undefined"</label><br>
+                    <label><input type="radio" name="q28" value="d"> "boolean"</label><br>
+                </div>
+
+                <!-- Question 29 -->
+                <div class="question">
+                    <h3>29. Which method is used to merge two or more arrays in JavaScript?</h3>
+                    <label><input type="radio" name="q29" value="a"> concat()</label><br>
+                    <label><input type="radio" name="q29" value="b"> join()</label><br>
+                    <label><input type="radio" name="q29" value="c"> combine()</label><br>
+                    <label><input type="radio" name="q29" value="d"> merge()</label><br>
+                </div>
+
+                <!-- Question 30 -->
+                <div class="question">
+                    <h3>30. What is the purpose of the `setTimeout()` method in JavaScript?</h3>
+                    <label><input type="radio" name="q30" value="a"> To execute a function after a specified
+                        delay</label><br>
+                    <label><input type="radio" name="q30" value="b"> To set the timeout of a function</label><br>
+                    <label><input type="radio" name="q30" value="c"> To delay the execution of the script</label><br>
+                    <label><input type="radio" name="q30" value="d"> None of the above</label><br>
+                </div>
+
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('test-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const correctAnswers = {
+                q1: '<src="myScript.js"',
+                q2: 'innerHTML',
+                q3: 'd',
+                q4: 'a',
+                q6: 'a',
+                q7: 'b',
+                q8: 'b',
+                q9: 'b',
+                q10: 'b',
+                q11: 'a',
+                q12: 'd',
+                q13: 'a',
+                q14: 'a',
+                q15: 'b',
+                q16: 'd',
+                q17: 'a',
+                q18: 'c',
+                q19: 'b',
+                q20: 'a',
+                q21: 'a',
+                q22: 'b',
+                q23: 'c',
+                q24: 'b',
+                q25: 'a',
+                q26: 'd',
+                q27: 'b',
+                q28: 'a',
+                q29: 'a',
+                q30: 'b'
+            };
+
+            let score = 0;
+
+            // Check text inputs for questions q1 to q10
+            for (let question in correctAnswers) {
+                if (question.startsWith('q') && !question.startsWith('q3') && !question.startsWith('q4') && !question.startsWith('q5')) {
+                    const input = document.getElementById(question);
+                    if (input && input.value.trim() === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+            }
+
+            // Check radio buttons for questions q3, q4, q6, q7, q8, q9, q10
+            for (let question in correctAnswers) {
+                if (question.startsWith('q') && (question.startsWith('q3') || question.startsWith('q4') || question.startsWith('q6') || question.startsWith('q7') || question.startsWith('q8') || question.startsWith('q9') || question.startsWith('q10'))) {
+                    const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                    if (selectedOption && selectedOption.value === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+            }
+
+            // Check drag-and-drop questions (question 5, 15)
+            const dropZones = document.querySelectorAll('.drop-zones .box');
+            let allCorrect = true;
+            dropZones.forEach(zone => {
+                const draggedText = zone.textContent.trim();
+                const correctId = zone.dataset.correct;
+                const draggedElement = document.getElementById(correctId);
+
+                if (!draggedElement || draggedElement.textContent.trim() !== draggedText) {
+                    allCorrect = false;
+                }
+            });
+
+            if (allCorrect) {
+                score++;
+            }
+
+            const totalQuestions = Object.keys(correctAnswers).length + 1; // +1 for drag-and-drop question check
+            const percentage = ((score / totalQuestions) * 100).toFixed(2);
+            alert(`Your score is ${score} out of ${totalQuestions} (${percentage}%)`);
+        });
+
+        const dragItems = document.querySelectorAll('.drag-item');
+        const dropZones = document.querySelectorAll('.box');
+
+        dragItems.forEach(item => {
+            item.addEventListener('dragstart', () => {
+                item.classList.add('dragging');
+            });
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging');
+            });
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', event => {
+                event.preventDefault();
+            });
+            zone.addEventListener('drop', () => {
+                const draggedItem = document.querySelector('.dragging');
+                if (draggedItem) {
+                    if (draggedItem.id === zone.dataset.correct) {
+                        zone.textContent = draggedItem.textContent;
+                        draggedItem.setAttribute('draggable', 'false');
+                    } else {
+                        draggedItem.classList.remove('dragging');
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon_io/favicon-32x32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="favicon_io/favicon-16x16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" /><!-- Local Bootstrap CSS -->
+  </head>
+  <body>
+    <header>
+      <nav class="navbar bg-cream">
+        <div class="logo">
+          <img src="/img/logo.png" alt="logo" />
+        </div>
+        <ul class="nav-list">
+          <li><a href="1_page.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="tests_main.html">Tests</a></li>
+          <li><a href="2_page.html">Syllabus</a></li>
+
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="results_user.html">Results</a></li>
+
+          <li id="welcome-message">Welcome, Guest</li>
+        </ul>
+        
+      </nav>
+    </header>
+
+    <div class="container py-5">
+      <h2 class="text-center fw-bold mb-4">User Profile</h2>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Personal Information</h5>
+              <form id="userInfoForm">
+                <div class="mb-3">
+                  <label for="name" class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="name" required />
+                </div>
+                <div class="mb-3">
+                  <label for="surname" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="surname" required />
+                </div>
+                <div class="mb-3">
+                  <label for="faculty" class="form-label">Faculty</label>
+                  <select class="form-control" id="faculty" required>
+                    <option value="CB">CB - Cybersecurity</option>
+                    <option value="SE">SE - Software Engineering</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="group" class="form-label">Group</label>
+                  <select class="form-control" id="group" required>
+                    <option value="2311">2311</option>
+                    <option value="2232">2232</option>
+                    <option value="2412">2412</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" disabled >
+                </div>
+                <button type="submit" class="btn btn-primary" style="background-color: #2f327d;">
+                  Save Changes
+                </button>
+              </form>
+              <div class="d-flex justify-content-between mt-3">
+                <button class="btn btn-warning" id="change-password-btn">Change Password</button>
+                <button class="btn btn-danger" onclick="logout()">Logout</button>
+                <button class="btn btn-warning" id="verifyEmailBtn">Verify email</button>
+                <button class="btn btn-info" id="resultsButton">Results</button>
+
+              </div>
+              <!-- Verification status text below the buttons -->
+              <div id="verificationStatus" class="mt-3 text-center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simple modal for OTP -->
+    <div
+      class="modal fade"
+      id="otpModal"
+      tabindex="-1"
+      aria-labelledby="otpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="otpModalLabel">Verify Your Email</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>An OTP was sent to your email address. Please enter it below:</p>
+            <input type="text" id="otpInput" class="form-control mb-3" />
+            <p id="otpResponseMessage" class="text-danger"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelOtpBtn">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-primary" id="confirmOtpBtn">
+              Confirm OTP
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Changing Password -->
+    <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="passwordModalLabel">Change Password</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="changePasswordForm">
+              <div class="mb-3">
+                <label for="newPassword" class="form-label">New Password</label>
+                <input type="password" class="form-control" id="newPassword" required />
+              </div>
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" required />
+              </div>
+              <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-warning">Change Password</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="edu-logo">
+        <div class="logo">
+          <img src="/img/logo_d.png" alt="logo" />
+        </div>
+        <div class="v-line"></div>
+        <span>Virtual Class for Web Technologies</span>
+      </div>
+      <div class="links">
+        <img src="/img/inst.png" alt="inst" />
+        <a href="https://www.instagram.com/alisher_amirov?igsh=MTVmczJycG93aWVlcQ==">inst</a>
+        <img src="/img/mail.png" alt="mail" />
+        <a href="">mail</a>
+        <img src="/img/tg.png" alt="tg" />
+        <a href="https://t.me/amirov_alisher">tg</a>
+      </div>
+      <div class="copyright">
+        <p>© Amirov Alisher</p>
+      </div>
+    </footer>
+    <script>
+      window.user = JSON.parse(localStorage.getItem("user")) || {};
+    </script>
+    <script src="/profile.js"></script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          console.log("No token found. Redirecting to login.");
+          window.location.href = "/login.html";
+          return;
+        }
+    
+        // Grab DOM elements
+        const welcomeMessage = document.getElementById("welcome-message");
+        const userEmailElement = document.getElementById("email"); // The disabled email input
+        const firstNameInput = document.getElementById("name");
+        const lastNameInput = document.getElementById("surname");
+        const facultySelect = document.getElementById("faculty");
+        const groupSelect = document.getElementById("group");
+        const profileForm = document.getElementById("userInfoForm");
+        const changePasswordBtn = document.getElementById("change-password-btn");
+        const verificationStatusDiv = document.getElementById("verificationStatus");
+    
+        // OTP modal elements
+        const verifyEmailBtn = document.getElementById("verifyEmailBtn");
+        const otpModalEl = document.getElementById("otpModal");
+        const confirmOtpBtn = document.getElementById("confirmOtpBtn");
+        const cancelOtpBtn = document.getElementById("cancelOtpBtn");
+        const otpInput = document.getElementById("otpInput");
+        const otpResponseMsg = document.getElementById("otpResponseMessage");
+
+        const email = localStorage.getItem("email");
+        welcomeMessage.textContent = "Welcome, " + (data.user.name || email || "Guest");
+
+    
+        // Fetch user profile data
+        try {
+          const response = await fetch("http://localhost:3000/user/profile", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            }
+          });
+          const data = await response.json();
+    
+          if (!response.ok) {
+            console.error("Failed to fetch user data:", data.message || data);
+            localStorage.removeItem("authToken");
+            window.location.href = "/login.html";
+            return;
+          }
+    
+          // Populate fields
+          welcomeMessage.textContent = "Welcome, " + data.user.email;
+          userEmailElement.value = data.user.email;
+          firstNameInput.value = data.user.name || "";
+          lastNameInput.value = data.user.surname || "";
+          facultySelect.value = data.user.faculty || "CB";
+          groupSelect.value = data.user.group || "2311";
+    
+          // Update verification status text based on the user's isVerified value
+          if (data.user.isVerified) {
+            verificationStatusDiv.textContent = "Email Verified";
+            verificationStatusDiv.classList.add("text-success");
+            verificationStatusDiv.classList.remove("text-danger");
+          } else {
+            verificationStatusDiv.textContent = "contact admin: admin@admin";
+            verificationStatusDiv.classList.add("text-danger");
+            verificationStatusDiv.classList.remove("text-success");
+          }
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+          localStorage.removeItem("authToken");
+          window.location.href = "/login.html";
+          return;
+        }
+    
+        // Handle profile update form submission
+        profileForm.addEventListener("submit", async function (event) {
+          event.preventDefault();
+          const updatedData = {
+            name: firstNameInput.value.trim(),
+            surname: lastNameInput.value.trim(),
+            faculty: facultySelect.value,
+            group: groupSelect.value
+          };
+          try {
+            const updateResponse = await fetch("http://localhost:3000/user/profile", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+              },
+              body: JSON.stringify(updatedData)
+            });
+            const result = await updateResponse.json();
+            if (!updateResponse.ok) {
+              alert(result.message || "Error updating profile");
+              return;
+            }
+            alert("Profile updated successfully!");
+          } catch (error) {
+            console.error("Error updating profile:", error);
+          }
+        });
+    
+        // Show "Change Password" modal on button click
+        changePasswordBtn.addEventListener("click", () => {
+          const passwordModal = new bootstrap.Modal(
+            document.getElementById("passwordModal")
+          );
+          passwordModal.show();
+        });
+    
+        // Handle "Change Password" form submission
+        const changePasswordForm = document.getElementById("changePasswordForm");
+        changePasswordForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+    
+          const newPassword = document.getElementById("newPassword").value.trim();
+          const confirmPassword = document.getElementById("confirmPassword").value.trim();
+    
+          if (newPassword !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+          }
+    
+          try {
+            const response = await fetch("http://localhost:3000/user/change-password", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+              },
+              body: JSON.stringify({ newPassword, confirmPassword })
+            });
+    
+            const result = await response.json();
+            if (!response.ok) {
+              alert(result.message || "Error changing password.");
+              return;
+            }
+    
+            alert("Password changed successfully. Please log in with your new password.");
+            // Close the modal
+            const passwordModalEl = document.getElementById("passwordModal");
+            const passwordModal = bootstrap.Modal.getInstance(passwordModalEl);
+            if (passwordModal) {
+              passwordModal.hide();
+            }
+            // Clear token and redirect
+            localStorage.removeItem("authToken");
+            window.location.href = "/login.html";
+          } catch (error) {
+            console.error("Error during password change:", error);
+            alert("Error changing password. Please try again.");
+          }
+        });
+    
+        // SEND VERIFICATION OTP (with the "/auth" prefix)
+        verifyEmailBtn.addEventListener("click", async () => {
+          console.log("Verify email button clicked"); // Debug log
+          try {
+            const response = await fetch("http://localhost:3000/auth/send-verification-otp", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+              }
+            });
+    
+            if (!response.ok) {
+              const data = await response.json();
+              showNotification(data.message || "Error sending OTP", "error"); // Alert replaced here
+              return;
+            }
+            console.log("OTP request successful, showing modal"); // Debug log
+            // If OK, show the OTP modal using Bootstrap
+            const modalObj = new bootstrap.Modal(otpModalEl);
+            modalObj.show();
+    
+            // Clear out any old messages
+            otpResponseMsg.textContent = "";
+            otpInput.value = "";
+          } catch (error) {
+            console.error("Error sending verification OTP:", error);
+            showNotification("Could not send verification code. Try again later.", "error"); // And here
+          }
+        });
+    
+        // CONFIRM THE OTP (with the "/auth" prefix)
+        confirmOtpBtn.addEventListener("click", async () => {
+          console.log("Confirm OTP button clicked"); // Debug log
+          const userOtp = otpInput.value.trim();
+          if (!userOtp) {
+            otpResponseMsg.textContent = "Please enter the code first.";
+            return;
+          }
+    
+          try {
+            const response = await fetch("http://localhost:3000/auth/verify-otp", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+              },
+              body: JSON.stringify({ otp: userOtp })
+            });
+            const result = await response.json();
+    
+            if (response.ok && result.success) {
+              otpResponseMsg.textContent = "Email Verified Successfully!";
+    
+              // Update verification status text immediately
+              verificationStatusDiv.textContent = "Email Verified";
+              verificationStatusDiv.classList.add("text-success");
+              verificationStatusDiv.classList.remove("text-danger");
+    
+              // Force a reload of the page to refresh user data (optional)
+              setTimeout(() => {
+                const modalObj = bootstrap.Modal.getInstance(otpModalEl);
+                modalObj.hide();
+                window.location.reload();
+              }, 1000);
+            } else {
+              otpResponseMsg.textContent = result.message || "Invalid OTP.";
+            }
+          } catch (error) {
+            console.error("Error verifying OTP:", error);
+            otpResponseMsg.textContent = "Error verifying OTP.";
+          }
+        });
+        
+      });
+    
+      // Global logout function
+      function logout() {
+        localStorage.removeItem("authToken");
+        window.location.href = "/login.html";
+      }
+    </script>
+    <script src="/js/inert.min.js"></script>
+  </body>
+</html>

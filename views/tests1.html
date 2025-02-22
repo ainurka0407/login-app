@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Test</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="favicon_io/favicon-32x32.png" sizes="32x32" type="image/png"> 
+  <link rel="icon" href="favicon_io/favicon-16x16.png" sizes="16x16" type="image/png"> 
+  <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
+  
+</head>
+<body>
+  <!--navbar-->
+  <header>
+      <nav class="navbar bg-cream">
+          <div class="logo">
+              <img src="/img/logo.png" alt="logo">
+          </div>
+          <ul class="nav-list">
+              <li><a href="1_page.html">Home</a></li>
+              <li><a href="courses.html">Courses</a></li>
+              <li><a href="tests_main.html">Tests</a></li>
+              <li><a href="profile.html">Profile</a></li>
+              <li><a href="results_user.html">Results</a></li>
+
+            </ul>
+      </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero bg-cream">
+      <div class="main">
+          <div class="hero-content">
+              <h2><span>Web</span> Technology Tests</h2>
+              <p>Challenge yourself with quizzes on HTML, CSS, JavaScript, and more.</p>
+          </div>
+      </div>
+  </section>
+
+  <!-- Test Section -->
+  <section class="test-container">
+      <div class="test-content">
+          <h1>HTML <span>Test</span></h1>
+          <form id="test-form">
+              <!-- Questions by JS -->
+          </form>
+          <button type="submit" class="submit-btn">Submit</button>
+      </div>
+  </section>
+  
+  <!-- Inline Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        // If no token, redirect to login page.
+        window.location.href = "/login.html";
+        return;
+      }
+  
+      // Helper function to show in-page notifications
+      function showNotification(message, type) {
+        let notificationDiv = document.getElementById('notification');
+        if (!notificationDiv) {
+          notificationDiv = document.createElement('div');
+          notificationDiv.id = 'notification';
+          notificationDiv.style.position = 'fixed';
+          notificationDiv.style.top = '10px';
+          notificationDiv.style.left = '50%';
+          notificationDiv.style.transform = 'translateX(-50%)';
+          notificationDiv.style.padding = '10px 20px';
+          notificationDiv.style.zIndex = '1000';
+          notificationDiv.style.borderRadius = '4px';
+          document.body.appendChild(notificationDiv);
+        }
+        notificationDiv.textContent = message;
+        if (type === 'error') {
+          notificationDiv.style.backgroundColor = '#f8d7da';
+          notificationDiv.style.color = '#721c24';
+        } else {
+          // Default is success/info style
+          notificationDiv.style.backgroundColor = '#d4edda';
+          notificationDiv.style.color = '#155724';
+        }
+        notificationDiv.style.display = 'block';
+        setTimeout(() => {
+          notificationDiv.style.display = 'none';
+        }, 3000);
+      }
+  
+      // Retrieve the user info from localStorage if stored.
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+  
+      try {
+        // Get tests from the server
+        const response = await fetch('/test/get-tests');
+        if (!response.ok) {
+          throw new Error('Ошибка загрузки тестов');
+        }
+        const questions = await response.json();
+  
+        // Check if there are questions
+        if (!questions.length) {
+          document.getElementById("test-form").innerHTML = "<p>Тесты не найдены.</p>";
+          return;
+        }
+  
+        // Shuffle questions array
+        function shuffleArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+        }
+        shuffleArray(questions);
+  
+        const form = document.getElementById("test-form");
+  
+        // Create questions dynamically
+        questions.forEach((questionObj, index) => {
+          const questionDiv = document.createElement("div");
+          questionDiv.classList.add("question");
+  
+          const questionTitle = document.createElement("h3");
+          questionTitle.textContent = questionObj.question;
+          questionDiv.appendChild(questionTitle);
+  
+          questionObj.options.forEach(option => {
+            const label = document.createElement("label");
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = `q${index + 1}`;
+            input.value = option.value;
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(option.label));
+            questionDiv.appendChild(label);
+            questionDiv.appendChild(document.createElement("br"));
+          });
+  
+          form.appendChild(questionDiv);
+        });
+  
+        // Handle form submission
+        document.querySelector(".submit-btn").addEventListener("click", async function (event) {
+          event.preventDefault();
+  
+          let score = 0;
+          const totalQuestions = questions.length;
+  
+          questions.forEach((q, index) => {
+            const selectedOption = document.querySelector(`input[name="q${index + 1}"]:checked`);
+            if (selectedOption && selectedOption.value === q.correctAnswer) {
+              score++;
+            }
+          });
+  
+          // Show notification for the test result
+          showNotification(`Ваш результат: ${score} из ${totalQuestions}`, "success");
+  
+          // Record the test result for the user.
+          // Replace "HTML Test" with the desired test name if needed.
+          await recordTestResult("HTML Test", score, totalQuestions);
+        });
+  
+      } catch (error) {
+        console.error("Ошибка:", error);
+        document.getElementById("test-form").innerHTML = "<p>Ошибка загрузки тестов.</p>";
+      }
+    });
+  </script>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="edu-logo">
+      <div class="logo">
+        <img src="/img/logo_d.png" alt="logo">
+      </div>
+      <div class="v-line"></div>
+      <span>Virtual Class for Web Technologies</span>
+    </div>
+    
+    <div class="links">
+      <img src="/img/inst.png" alt="inst">
+      <a href="https://www.instagram.com/alisher_amirov?igsh=MTVmczJycG93aWVlcQ==">inst</a>
+      <img src="/img/mail.png" alt="mail">
+      <a href="">mail</a>
+      <img src="/img/tg.png" alt="tg">
+      <a href="https://t.me/amirov_alisher">tg</a>
+    </div>
+    <div class="copyright">
+      <p>© Amirov Alisher</p>
+    </div>
+  </footer>
+
+  <script>
+    async function recordTestResult(testName, score, total) {
+      const token = localStorage.getItem("authToken");
+      try {
+        const response = await fetch("http://localhost:3000/test/results", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ testName, score, total })
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          console.error("Error recording test result:", data.message);
+        } else {
+          console.log("Test result recorded:", data);
+        }
+      } catch (error) {
+        console.error("Error recording test result:", error);
+      }
+    }
+  </script>
+  
+</body>
+</html>

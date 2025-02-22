@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Results</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+      <nav class="navbar bg-cream">
+        <div class="logo">
+          <img src="/img/logo.png" alt="logo" />
+        </div>
+        <ul class="nav-list">
+          
+          <li><a href="/tests_main.html">Tests</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="/profile.html">Profile</a></li>
+
+        </ul>
+      </nav>
+    </header>
+  
+    <div class="container py-5">
+      <h2 class="text-center fw-bold mb-4">Your Test Results</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Test Name</th>
+              <th>Score</th>
+              <th>Total</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTableBody">
+            <!-- Table rows will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          window.location.href = "/login.html";
+          return;
+        }
+        
+        try {
+          const response = await fetch("http://localhost:3000/test/results", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            }
+          });
+          const resultsData = await response.json();
+          if (!response.ok) {
+            console.error("Failed to load test results:", resultsData.message);
+            return;
+          }
+          
+          // Populate the table
+          const tableBody = document.getElementById("resultsTableBody");
+          tableBody.innerHTML = "";
+          resultsData.forEach((result, index) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${result.testName}</td>
+              <td>${result.score}</td>
+              <td>${result.total}</td>
+              <td>${new Date(result.dateTaken).toLocaleString()}</td>
+            `;
+            tableBody.appendChild(tr);
+          });
+        } catch (error) {
+          console.error("Error fetching test results:", error);
+        }
+      });
+    </script>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+  </body>
+  </html>

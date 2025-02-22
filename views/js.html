@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; img-src 'self' data:; frame-src 'self' https://*.youtube.com https://*.youtube-nocookie.com;">
+  <!-- Global override for passive event listeners for touch events -->
+  <title>JS page</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon_io/favicon-32x32.png" sizes="32x32" type="image/png"> 
+  <link rel="icon" href="favicon_io/favicon-16x16.png" sizes="16x16" type="image/png"> 
+  <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" /><!-- Local Bootstrap CSS -->
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar bg-cream">
+      <div class="logo">
+        <img src="/img/logo.png" alt="logo">
+      </div>
+      <ul class="nav-list">
+        <li><a href="1_page.html">Home</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="2_page.html">Syllabus</a></li>
+        <li><a href="tests_main.html">Tests</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="#about_us">About us</a></li>
+      </ul>
+      <div class="buttons">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+      </div>
+    </nav>
+  </header>
+    <!-- Hero Section -->
+    <section class="hero bg-cream">
+        <div class="main">
+            <div class="hero-content">
+                <h2><span>JS</span> Basics Course</h2>
+                <p>Master the foundation of web development by learning JS.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="course-content">
+        <section class="introduction">
+            <h3>What is JS?</h3>
+            <p>
+                JS (JavaScript) is a dynamic, high-level programming language primarily used to create interactive effects and dynamic functionality on websites. 
+                It is an essential part of modern web development and works alongside HTML (for content structure) and CSS (for presentation) to provide interactivity and a seamless user experience.
+            </p>
+            <ul>
+                <li>Interactivity: JavaScript allows developers to create interactive elements, such as buttons, forms, animations, and real-time updates on a webpage.</li>
+                <li>Event Handling: JS can respond to user actions like clicks, key presses, mouse movements, and more.</li>
+                <li>Asynchronous Programming: With features like promises and async/await, JavaScript can perform tasks in the background (e.g., loading data from a server) without blocking the rest of the page.</li>
+            </ul>
+        </section>
+
+        <!-- Video Lesson Section -->
+    <section class="video-lesson">
+        <h3>JS Video Lesson</h3>
+        <div class="video-container">
+          <iframe 
+            src="https://www.youtube.com/embed/it1rTvBcfRg?list=PLP9IO4UYNF0VdAajP_5pYG-jG2JRrG72s
+            " 
+            title="HTML Basics Lesson" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
+
+        <!-- кнопки -->
+        <div class="navigation-buttons">
+            <div class="back-button">
+                <a href="javascript:history.back()" class="btn-back">Back to CSS</a>
+            </div>
+            <div class="next-page-button">
+                <a href="tests_main.html" class="btn-next">Go to Tests</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="edu-logo">
+          <div class="logo">
+            <img src="/img/logo_d.png" alt="logo">
+          </div>
+          <div class="v-line"></div>
+          <span>Virtual Class for Web Technologies</span>
+        </div>
+        
+        <div class="links">
+          <img src="/img/inst.png" alt="inst">
+          <a href="https://www.instagram.com/alisher_amirov?igsh=MTVmczJycG93aWVlcQ==">inst</a>
+          <img src="/img/mail.png" alt="mail">
+          <a href="">mail</a>
+          <img src="/img/tg.png" alt="tg">
+          <a href="https://t.me/amirov_alisher">tg</a>
+        </div>
+        <div class="copyright">
+          <p>© Amirov Alisher</p>
+        </div>
+      </footer>
+  
+      <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+          try {
+            const response = await fetch("http://localhost:3000/video/get-config");
+            const config = await response.json();
+            // Set the iframe src for JS video lesson
+            const iframe = document.querySelector(".video-container iframe");
+            if (iframe && config.jsVideoUrl) {
+              iframe.src = config.jsVideoUrl;
+            }
+          } catch (error) {
+            console.error("Error loading video configuration:", error);
+          }
+        });
+      </script>
+</body>
+</html>

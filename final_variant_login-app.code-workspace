@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Desktop/web-technologies-app 2"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "login-app"
+	}
+}

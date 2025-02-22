@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Technology Tests</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="favicon_io/favicon-32x32.png" sizes="32x32" type="image/png"> 
+  <link rel="icon" href="favicon_io/favicon-16x16.png" sizes="16x16" type="image/png"> 
+  <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar bg-cream">
+      <div class="logo">
+        <img src="/img/logo.png" alt="logo">
+      </div>
+      <ul class="nav-list">
+        <li><a href="1_page.html">Home</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="tests_main.html">Tests</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="2_page.html">Syllabus</a></li>
+
+
+        <!-- Removed inline onclick attributes; added IDs -->
+        <button id="loginButton" class="login">Login</button>
+        <button id="signupButton" class="signup">Sign Up</button>
+      </ul>
+      <div class="buttons">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero bg-cream">
+    <div class="main">
+      <div class="hero-content">
+        <h2><span>Web</span> Technology Tests</h2>
+        <p>Challenge yourself with quizzes on HTML, CSS, JavaScript, and more.</p>
+        <p></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tests -->
+  <section class="tests">
+    <div class="heading">
+      <h4>Available <span>Tests</span></h4>
+      <p>Select a test below to assess your knowledge and track your progress.</p>
+    </div>
+    <div class="test-cards">
+      <!-- Test Card 1 -->
+      <div class="card">
+        <h4>HTML Basics Quiz</h4>
+        <p>Challenge your understanding of fundamental HTML tags, structure, and syntax.</p>
+        <!-- Replaced inline onclick with data attribute -->
+        <button class="nav-button" data-url="tests1.html">Start Quiz</button>
+      </div>
+      <!-- Test Card 2 -->
+      <div class="card">
+        <h4>CSS Basics Quiz</h4>
+        <p>Explore your knowledge of CSS rules, properties, and layout techniques.</p>
+        <button class="nav-button" data-url="tests2.html">Start Quiz</button>
+      </div>
+      <!-- Test Card 3 -->
+      <div class="card">
+        <h4>JavaScript Basics Quiz</h4>
+        <p>Test your skills in JavaScript essentials: variables, functions, and DOM interactions.</p>
+        <button class="nav-button" data-url="tests3.html">Start Quiz</button>
+      </div>
+      <!-- Test Card 4 -->
+      <div class="card">
+        <h4>Midterm Quiz</h4>
+        <p>Assess your understanding to prepare for the Midterm.</p>
+        <!-- For unavailable tests, use data-notification -->
+        <button class="nav-button-notice" data-notification="Will be available soon">Start Quiz</button>
+      </div>
+      <!-- Test Card 5 -->
+      <div class="card">
+        <h4>Endterm Quiz</h4>
+        <p>Assess your understanding to prepare for the Endterm.</p>
+        <button class="nav-button-notice" data-notification="Will be available soon">Start Quiz</button>
+      </div>
+      <!-- Test Card 6 -->
+      <div class="card">
+        <h4>Final Quiz</h4>
+        <p>Review and test your overall web development skills from HTML to JavaScript.</p>
+        <button class="nav-button" data-url="final_test.html">Start Quiz</button>
+      </div>
+    </div>
+  </section>
+
+ 
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="edu-logo">
+      <div class="logo">
+        <img src="/img/logo_d.png" alt="logo">
+      </div>
+      <div class="v-line"></div>
+      <span>Virtual Class for Web Technologies</span>
+    </div>
+    
+    <div class="links">
+      <img src="/img/inst.png" alt="inst">
+      <a href="https://www.instagram.com/alisher_amirov?igsh=MTVmczJycG93aWVlcQ==">inst</a>
+      <img src="/img/mail.png" alt="mail">
+      <a href="">mail</a>
+      <img src="/img/tg.png" alt="tg">
+      <a href="https://t.me/amirov_alisher">tg</a>
+    </div>
+    <div class="copyright">
+      <p>© Amirov Alisher</p>
+    </div>
+  </footer>
+
+
+  <script src="calculator.js"></script>
+  <!-- Inline script to attach event listeners (externalizing event handlers) -->
+  <script>
+    // Reuse the same showNotification() function defined in tests1.html if needed.
+    function showNotification(message, type) {
+      let notificationDiv = document.getElementById('notification');
+      if (!notificationDiv) {
+        notificationDiv = document.createElement('div');
+        notificationDiv.id = 'notification';
+        notificationDiv.style.position = 'fixed';
+        notificationDiv.style.top = '10px';
+        notificationDiv.style.left = '50%';
+        notificationDiv.style.transform = 'translateX(-50%)';
+        notificationDiv.style.padding = '10px 20px';
+        notificationDiv.style.zIndex = '1000';
+        notificationDiv.style.borderRadius = '4px';
+        document.body.appendChild(notificationDiv);
+      }
+      notificationDiv.textContent = message;
+      if (type === 'error') {
+        notificationDiv.style.backgroundColor = '#f8d7da';
+        notificationDiv.style.color = '#721c24';
+      } else if (type === 'success') {
+        notificationDiv.style.backgroundColor = '#d4edda';
+        notificationDiv.style.color = '#155724';
+      } else {
+        notificationDiv.style.backgroundColor = '#fff3cd';
+        notificationDiv.style.color = '#856404';
+      }
+      notificationDiv.style.display = 'block';
+      setTimeout(() => {
+        notificationDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Attach event listeners for navigation buttons (those with data-url)
+      document.querySelectorAll('.nav-button').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const url = button.getAttribute('data-url');
+          window.location.href = url;
+        });
+      });
+
+      // Attach event listeners for buttons that should display a notification
+      document.querySelectorAll('.nav-button-notice').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const message = button.getAttribute('data-notification');
+          showNotification(message, 'info');
+        });
+      });
+
+      // Attach event listeners for Login and Sign Up buttons
+      document.getElementById('loginButton').addEventListener('click', function () {
+        showNotification('Will be available soon', 'info');
+      });
+      document.getElementById('signupButton').addEventListener('click', function () {
+        showNotification('Will be available soon', 'info');
+      });
+
+      // Attach event listeners for Calculator open and close buttons
+      document.getElementById('openCalculatorButton').addEventListener('click', function () {
+        // Assume openCalculator() is defined in calculator.js
+        openCalculator();
+      });
+      document.getElementById('closeCalculatorButton').addEventListener('click', function () {
+        // Assume closeCalculator() is defined in calculator.js
+        closeCalculator();
+      });
+    });
+  </script>
+</body>
+</html>

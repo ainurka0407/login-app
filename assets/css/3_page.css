@@ -1,0 +1,116 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins',sans-serif;
+}
+.bg-cream{
+    background-color: #fff2e1;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 30px;
+}
+
+.navbar .logo{
+    
+    display: flex;
+    align-items: center;
+    
+}
+.navbar .logo img {
+    width: 170px; 
+    height: auto; 
+    padding: 5px; 
+  }
+
+.navbar .nav-list{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.navbar .nav-list li{
+    list-style: none;
+    font-size: 15px;
+}
+.navbar .nav-list li a{
+    text-decoration: none;
+    color: black;
+}
+.navbar .nav-list button{
+    border: none;
+    padding: 10px 40px;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.navbar .nav-list .login{
+    background-color: #fff;
+}
+.navbar .nav-list .signup{
+    background-color: #f48c06;
+    color: #fff;
+}
+footer.footer {
+    background-color: #001f3f; 
+    color: aliceblue; 
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+
+  .edu-logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .edu-logo .logo img {
+    max-height: 50px; 
+    margin-right: 10px; 
+  }
+  
+  .edu-logo .v-line {
+    height: 50px;
+    width: 2px;
+    background-color: aliceblue;
+    margin: 0 10px;
+  }
+  
+  .edu-logo span {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+  }
+  
+  .links img {
+    width: 24px; 
+    height: 24px;
+    vertical-align: middle;
+  }
+  
+  .links a {
+    color: aliceblue;
+    text-decoration: none;
+    font-size: 16px;
+    margin-left: 5px; 
+  }
+  
+  .links a:hover {
+    text-decoration: underline; 
+  }
+  
+  .copyright {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  

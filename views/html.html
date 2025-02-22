@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; img-src 'self' data:; frame-src 'self' https://*.youtube.com https://*.youtube-nocookie.com;">
+  <!-- Global override for passive event listeners for touch events -->
+  <title>HTML page</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon_io/favicon-32x32.png" sizes="32x32" type="image/png"> 
+  <link rel="icon" href="favicon_io/favicon-16x16.png" sizes="16x16" type="image/png"> 
+  <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" /><!-- Local Bootstrap CSS -->
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar bg-cream">
+      <div class="logo">
+        <img src="/img/logo.png" alt="logo">
+      </div>
+      <ul class="nav-list">
+        <li><a href="1_page.html">Home</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="2_page.html">Syllabus</a></li>
+        <li><a href="tests_main.html">Tests</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="#about_us">About us</a></li>
+      </ul>
+      <div class="buttons">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+      </div>
+    </nav>
+  </header>
+  <!-- Hero Section -->
+  <section class="hero bg-cream">
+    <div class="main">
+      <div class="hero-content">
+        <h2><span>HTML</span> Basics Course</h2>
+        <p>Master the foundation of web development by learning HTML.</p>
+      </div>
+    </div>
+  </section>
+  <!-- Main Content -->
+  <main class="course-content">
+    <section class="introduction">
+      <h3>What is HTML?</h3>
+      <p>
+        HTML (HyperText Markup Language) is the standard language for creating webpages. 
+        It is used to structure web content, including headings, paragraphs, links, images, 
+        and multimedia elements. Understanding HTML is the first step to becoming a web developer.
+      </p>
+      <ul>
+        <li>HTML stands for HyperText Markup Language.</li>
+        <li>It describes the structure of a webpage using elements and tags.</li>
+        <li>HTML is the foundation of the web and works with CSS and JavaScript to create complete websites.</li>
+      </ul>
+    </section>
+    <!-- Video Lesson Section -->
+    <section class="video-lesson">
+      <h3>HTML Basics Video Lesson</h3>
+      <div class="video-container">
+        <iframe 
+          src="https://www.youtube.com/embed/it1rTvBcfRg?list=PLP9IO4UYNF0VdAajP_5pYG-jG2JRrG72s
+          " 
+          title="HTML Basics Lesson" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+    <!-- Next Page Button -->
+    <section class="next-page-button">
+      <a href="css.html" class="btn-next">Go to CSS</a>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="edu-logo">
+      <div class="logo">
+        <img src="/img/logo_d.png" alt="logo">
+      </div>
+      <div class="v-line"></div>
+      <span>Virtual Class for Web Technologies</span>
+    </div>
+    <div class="links">
+      <img src="/img/inst.png" alt="inst">
+      <a href="https://www.instagram.com/alisher_amirov?igsh=MTVmczJycG93aWVlcQ==">inst</a>
+      <img src="/img/mail.png" alt="mail">
+      <a href="">mail</a>
+      <img src="/img/tg.png" alt="tg">
+      <a href="https://t.me/amirov_alisher">tg</a>
+    </div>
+    <div class="copyright">
+      <p>© Amirov Alisher</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const response = await fetch("http://localhost:3000/video/get-config");
+        const config = await response.json();
+        // Set the iframe src for HTML video lesson
+        const iframe = document.querySelector(".video-container iframe");
+        if (iframe && config.htmlVideoUrl) {
+          iframe.src = config.htmlVideoUrl;
+        }
+      } catch (error) {
+        console.error("Error loading video configuration:", error);
+      }
+    });
+  </script>
+  
+</body>
+</html>
