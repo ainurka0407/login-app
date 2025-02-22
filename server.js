@@ -7,10 +7,9 @@ const path = require('path');
 require('dotenv').config();
 const helmet = require('helmet');
 
-
 const app = express();
 
-// Use Helmet for basic security headers and a custom content security policy
+// Use Helmet for security headers and a custom content security policy
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
@@ -24,13 +23,15 @@ app.use(
     },
   })
 );
+
+// Health-check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', message: 'Server is running' });
 });
 
-// CORS configuration
+// CORS configuration (Update origin for production if needed)
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3000', // Change this to your deployed front-end URL in production
   credentials: true,
 };
 app.use(cors(corsOptions));
@@ -46,7 +47,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false, // Set to true if using HTTPS in production
+      secure: false, // Change to true if using HTTPS in production
       httpOnly: true,
       maxAge: 60000,
     },
@@ -61,48 +62,30 @@ app.use('/bootstrap/css', express.static(path.join(__dirname, 'bootstrap/css')))
 app.use('/bootstrap/js', express.static(path.join(__dirname, 'bootstrap/js')));
 app.use('/js', express.static(path.join(__dirname, 'js')));
 
-const localURI = 'mongodb://localhost:27017/users';
-
-// Use the environment variable if available, otherwise fallback to local:
-const MONGODB_URI = process.env.MONGODB_URI || localURI;
-
-mongoose.connect(MONGODB_URI, { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 50000 
-})
-  .then(() => console.log("Connected to MongoDB"))
+// MongoDB connection
+const MONGODB_URI = process.env.MONGODB_URI;
+mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 50000 })
+  .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
-
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const testRoutes = require('./routes/testRoutes'); // if needed
 const viewRoutes = require('./routes/viewRoutes');
-
 const testResultsRoutes = require('./routes/testResultsRoutes');
-app.use('/test', testResultsRoutes);
-
 const videoRoutes = require('./routes/videoRoutes');
-app.use('/video', videoRoutes);
-
-
 
 // Mount routes
+app.use('/test', testResultsRoutes);
+app.use('/video', videoRoutes);
 app.use('/', viewRoutes);
 app.use('/auth', authRoutes);
 console.log("Mounting authRoutes at /auth");
-
 app.use('/user', userRoutes);
 app.use('/test', testRoutes);
 
-// (Optional) A health-check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK', message: 'Server is running' });
-});
-
-// A fallback Content Security Policy header (if needed)
+// Fallback Content Security Policy header (if needed)
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
@@ -116,4 +99,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
