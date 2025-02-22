@@ -7,6 +7,7 @@ const path = require('path');
 require('dotenv').config();
 const helmet = require('helmet');
 
+
 const app = express();
 
 // Use Helmet for basic security headers and a custom content security policy
@@ -23,7 +24,9 @@ app.use(
     },
   })
 );
-
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'Server is running' });
+});
 
 // CORS configuration
 const corsOptions = {
@@ -105,3 +108,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
